@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="{{ asset('bundles/web/stylesheets/styles.css')}}" />
+{% endblock %}
+
+{% block body %}
+  <div class="row">
+    <div class="container-fluid main-background">
+      <div class="container">
+        <div class="text-center">
+          <img src="{{ asset('bundles/web/images/logo.png')}}" class="logo" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="container">
+      <h1>Meet'n'Lunch</h1>
+      <hr />
+      <p>
+        It’s lunchtime at work but had something to finished so you could not had lunch with your co-workers and ended being alone ? Or you want to go eat somewhere outside but none of your friends are available ?
+        <br />
+        <br />
+        <span class="orange-color">Meet'n'Lunch</span> can solve your problem ! Just grab your phone and go wherever you want to eat, people will be aware through the application that you looking for someone to eat with and will join you. Or just go outside and search for some people whose using the app and also looking for someone.
+        It’s a good opportunity to meet new people or even make friends !
+      </p>
+      <div class="text-center container-btn">
+        <a href="{{ path('getting_started') }}">
+          <button class="btn orange-btn">
+            Join us !
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

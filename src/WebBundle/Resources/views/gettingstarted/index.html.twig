@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="{{ asset('bundles/web/stylesheets/styles.css')}}" />
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="text-center">
+      <img src="{{ asset('bundles/web/images/logo.png')}}" class="" alt="" width="200" style="margin-top: 50px;"/>
+      <h1>Getting started</h1>
+      <hr />
+      <div class="gettingstart-container">
+        <p>
+          Click on the button to download the APK of the application.
+        </p>
+        <button class="btn orange-btn">
+          Download !
+        </button>
+        <br />
+        <p>
+          You have to put the APK in your phone via USB. <br />
+          And enjoy your lunch/diner with new people :)
+        </p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
