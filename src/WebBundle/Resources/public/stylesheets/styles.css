@@ -1,0 +1,55 @@
+html {
+  height: 100%;
+}
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+.main-background {
+  background: url('../../web/images/background2.jpg') no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  min-height: 600px;
+}
+h1 {
+  color: #FA7353;
+  font-weight: 300;
+  font-size: 40px;
+}
+.logo {
+  text-align: center;
+  padding-top: 200px;
+}
+p {
+  font-size: 18px;
+}
+.orange-color {
+  color: #FA7353;
+}
+.container-btn {
+  margin-top: 25px;
+}
+.orange-btn {
+  background: #FA7353;
+  color: #FFF;
+  font-size: 18px;
+  padding: 10px 20px;
+}
+.orange-btn:hover {
+  color: #FFF;
+}
+.gettingstarted-container {
+  margin-top: 50px;
+  color: #FA7353;
+}
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+}
