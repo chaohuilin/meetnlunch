@@ -51,9 +51,21 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
         ),
+        'O' => 
+        array (
+            'OAuth2\\' => 7,
+        ),
+        'N' => 
+        array (
+            'Negotiation\\' => 12,
+        ),
         'M' => 
         array (
             'Monolog\\' => 8,
+        ),
+        'J' => 
+        array (
+            'JMS\\SerializerBundle\\' => 21,
         ),
         'I' => 
         array (
@@ -62,6 +74,9 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
         'F' => 
         array (
             'Fig\\Link\\' => 9,
+            'FOS\\UserBundle\\' => 15,
+            'FOS\\RestBundle\\' => 15,
+            'FOS\\OAuthServerBundle\\' => 22,
         ),
         'D' => 
         array (
@@ -170,9 +185,21 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
+        'OAuth2\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/oauth2-php/lib',
+        ),
+        'Negotiation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/negotiation/src/Negotiation',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'JMS\\SerializerBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/serializer-bundle',
         ),
         'Incenteev\\ParameterHandler\\' => 
         array (
@@ -181,6 +208,18 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
         'Fig\\Link\\' => 
         array (
             0 => __DIR__ . '/..' . '/fig/link-util/src',
+        ),
+        'FOS\\UserBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/user-bundle',
+        ),
+        'FOS\\RestBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/rest-bundle',
+        ),
+        'FOS\\OAuthServerBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/oauth-server-bundle',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
@@ -225,6 +264,50 @@ class ComposerStaticInitd4849226115abda7ab30f774b9a062bd
             'SensioLabs\\Security' => 
             array (
                 0 => __DIR__ . '/..' . '/sensiolabs/security-checker',
+            ),
+        ),
+        'P' => 
+        array (
+            'PhpOption\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
+            ),
+            'PhpCollection' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpcollection/phpcollection/src',
+            ),
+        ),
+        'N' => 
+        array (
+            'Nelmio\\ApiDocBundle' => 
+            array (
+                0 => __DIR__ . '/..' . '/nelmio/api-doc-bundle',
+            ),
+        ),
+        'M' => 
+        array (
+            'Michelf' => 
+            array (
+                0 => __DIR__ . '/..' . '/michelf/php-markdown',
+            ),
+            'Metadata\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/metadata/src',
+            ),
+        ),
+        'J' => 
+        array (
+            'JsonpCallbackValidator' => 
+            array (
+                0 => __DIR__ . '/..' . '/willdurand/jsonp-callback-validator/src',
+            ),
+            'JMS\\Serializer' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/serializer/src',
+            ),
+            'JMS\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/parser-lib/src',
             ),
         ),
         'D' => 

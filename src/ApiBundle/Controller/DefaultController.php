@@ -4,14 +4,17 @@ namespace ApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use FOS\RestBundle\Controller\FOSRestController;
 
-class DefaultController extends Controller
+class DefaultController extends FOSRestController
 {
     /**
      * @Route("/")
      */
     public function indexAction()
     {
-        return $this->render('ApiBundle:Default:index.html.twig');
+        $data = array("hello" => "world");
+        $view = $this->view($data);
+        return $this->handleView($view);
     }
 }
