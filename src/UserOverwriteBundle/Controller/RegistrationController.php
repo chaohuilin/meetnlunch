@@ -47,7 +47,7 @@ class RegistrationController extends BaseController
                 return $response;
             }
         }
-        $response = new JsonResponse(array("success" => true));
+        $response = new JsonResponse(array("success" => false));
         $response->setStatusCode(200);
         return $response;
     }
