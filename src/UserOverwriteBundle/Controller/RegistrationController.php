@@ -19,6 +19,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class RegistrationController extends BaseController
 {
@@ -40,7 +42,8 @@ class RegistrationController extends BaseController
         $form->setData($user);
         $form->handleRequest($request);
         if ($request->isMethod("POST")) {
-          $user->setPassword($request->request->get('password'));
+          $password = $request->request->get('password');
+          self::cryptPassword($password, $user);
           $user->setUsername($request->request->get('username'));
           $user->setEmail($request->request->get('email'));
           $user->setEnabled(true);
@@ -52,5 +55,13 @@ class RegistrationController extends BaseController
         $response = new JsonResponse(array("success" => false, "error" => $form->isSubmitted()));
         $response->setStatusCode(200);
         return $response;
+    }
+
+    public function cryptPassword($password, $user){
+      $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+      $salt = rtrim(str_replace('+', '.', base64_encode(random_bytes(32))), '=');
+      $user->setSalt($salt);
+      $hashedPassword = $encoder->encodePassword($password, $user->getSalt());
+      $user->setPassword($hashedPassword);
     }
 }
