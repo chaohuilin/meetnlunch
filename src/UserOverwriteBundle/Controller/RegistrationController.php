@@ -39,15 +39,17 @@ class RegistrationController extends BaseController
         $form = $formFactory->createForm();
         $form->setData($user);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $userManager->updateUser($user);
-                $response = new JsonResponse(array("success" => true));
-                $response->setStatusCode(200);
-                return $response;
-            }
+        if ($request->isMethod("POST")) {
+          $user->setPassword($request->request->get('password'));
+          $user->setUsername($request->request->get('username'));
+          $user->setEmail($request->request->get('email'));
+          $user->setEnabled(true);
+          $userManager->updateUser($user);
+          $response = new JsonResponse(array("success" => true));
+          $response->setStatusCode(200);
+          return $response;
         }
-        $response = new JsonResponse(array("success" => false));
+        $response = new JsonResponse(array("success" => false, "error" => $form->isSubmitted()));
         $response->setStatusCode(200);
         return $response;
     }
