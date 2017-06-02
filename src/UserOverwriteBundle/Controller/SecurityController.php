@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Security;
 use FOS\UserBundle\Controller\SecurityController as BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use GuzzleHttp\Client;
 
 class SecurityController extends BaseController
 {
@@ -20,23 +21,29 @@ class SecurityController extends BaseController
      */
     public function loginAction(Request $request)
     {
-	    $em = $this->get('doctrine')->getManager();
-      if ($request->isMethod("POST")) {
-        $username = $request->request->get('username');
-        $password = $request->request->get('password');
-        $user = $em->getRepository('ApiBundle:User')->findOneBy(array('username' => $username));
-        if ($user){
-           if (self::checkPassword($password, $user)){
-              $token = Request::create('http://localhost:8888/meetnlunch/web/app_dev.php/api/login', 'GET');
-              $response = new JsonResponse(array("user" => $user->getUsername()));
-              $response->setStatusCode(200);
-              return $response;
-           }
-        }
-        return new JsonResponse(array("error" => "username or password failed"));
-      }else {
-        return new JsonResponse(array("success" => "false"));
-      }
+      $client_id = $request->request->get('client_id');
+      $client_secret = $request->request->get('client_secret');
+      $host = $request->request->get('host');
+      $username = $request->request->get('username');
+      $password = $request->request->get('password');
+      $client = new Client([
+        // Base URI is used with relative requests
+        'base_uri' => 'https://meetnlunchapp.herokuapp.com',
+        // You can set any number of default request options.
+        'timeout'  => 20.0,
+      ]);
+      $response = $client->request('POST', "/oauth/v2/token", [
+        'json' => [
+          'grant_type' => "password",
+          'client_id'  => $client_id,
+          'client_secret' => $client_secret,
+          'username' => $username,
+          'password' => $password,
+        ]
+      ]);
+
+      $data = json_decode($response->getBody());
+      return new JsonResponse($data);
     }
 
     public function checkPassword($password, $user){
