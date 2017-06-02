@@ -1,16 +1,19 @@
+user_overwrite:
+    resource: "@UserOverwriteBundle/Controller/"
+    type:     annotation
+    prefix:   /api/
+
 web:
     resource: '@WebBundle/Controller/'
     type: annotation
 
 api:
-    resource: '@ApiBundle/Controller/'
+    resource: '@ApiBundle/Controller/api'
     type: rest
-    prefix: /api
-
-# app/config/routing.yml
-NelmioApiDocBundle:
-    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /api/doc
+    prefix: /api/
 
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
