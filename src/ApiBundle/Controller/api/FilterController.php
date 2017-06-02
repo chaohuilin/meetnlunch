@@ -14,7 +14,7 @@ class FilterController extends FOSRestController
   /**
    * @Route("/filter", name="filter")
    */
-  public function getFiltersAction(Request $request)
+  public function getFilterAction(Request $request)
   {
     $all_query = $request->query->all();
     $range = $all_query["range"];
