@@ -1,19 +1,20 @@
 <?php
 
-namespace ApiBundle\Controller;
+namespace ApiBundle\Controller\api;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use ApiBundle\Entity\User;
+use FOS\RestBundle\Controller\FOSRestController;
 
-class FilterController extends Controller
+class FilterController extends FOSRestController
 {
   /**
    * @Route("/filter", name="filter")
    */
-  public function filterAction(Request $request)
+  public function getFiltersAction(Request $request)
   {
     $all_query = $request->query->all();
     $range = $all_query["range"];
