@@ -10,4 +10,11 @@ namespace ApiBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+  * @return string
+  **/
+  public function filter($age = "", $gender = "")
+  {
+    return "salut jai " . $age . "ans et je suis un/une " . $gender;
+  }
 }
