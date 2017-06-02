@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiBundle\Controller;
+namespace ApiBundle\Controller\api;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

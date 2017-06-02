@@ -1,10 +1,10 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_host: irkm0xtlo2pcmvvz.chr7pe7iynqr.eu-west-1.rds.amazonaws.com
+    database_host: o3iyl77734b9n3tg.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
     database_port: 3306
-    database_name: iwbi2cxd8fg1szm5
-    database_user: figky94ityq66uk9
-    database_password: ax6n8l18vg6hwj2c
+    database_name: qng63aq6nw6ldmjq
+    database_user: x0dxo45t7llxn88t
+    database_password: pesh83h5iec9jzbd
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: no.reply@meetnlunch.com
