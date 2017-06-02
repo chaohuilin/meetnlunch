@@ -24,15 +24,25 @@ class SecurityController extends BaseController
       if ($request->isMethod("POST")) {
         $username = $request->request->get('username');
         $password = $request->request->get('password');
-        $user = $em->getRepository('ApiBundle:User')->findOneBy(array('username' => $username, 'password' => $password));
+        $user = $em->getRepository('ApiBundle:User')->findOneBy(array('username' => $username));
         if ($user){
-          $response = new JsonResponse(array("user" => $user->getUsername()));
-          $response->setStatusCode(200);
-          return $response;
+           if (self::checkPassword($password, $user)){
+              $token = Request::create('http://localhost:8888/meetnlunch/web/app_dev.php/api/login', 'GET');
+              $response = new JsonResponse(array("user" => $user->getUsername()));
+              $response->setStatusCode(200);
+              return $response;
+           }
         }
         return new JsonResponse(array("error" => "username or password failed"));
       }else {
         return new JsonResponse(array("success" => "false"));
+      }
+    }
+
+    public function checkPassword($password, $user){
+      $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+      if ($encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt())) {
+        return true;
       }
     }
 }
