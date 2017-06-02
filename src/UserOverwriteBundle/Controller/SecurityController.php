@@ -21,6 +21,7 @@ class SecurityController extends BaseController
      */
     public function loginAction(Request $request)
     {
+      $route = $request->getHttpHost();
       $client_id = $request->request->get('client_id');
       $client_secret = $request->request->get('client_secret');
       $host = $request->request->get('host');
@@ -28,7 +29,7 @@ class SecurityController extends BaseController
       $password = $request->request->get('password');
       $client = new Client([
         // Base URI is used with relative requests
-        'base_uri' => 'https://meetnlunchapp.herokuapp.com',
+        'base_uri' => $route,
         // You can set any number of default request options.
         'timeout'  => 20.0,
       ]);
