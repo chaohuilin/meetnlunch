@@ -21,7 +21,7 @@ class SecurityController extends BaseController
      */
     public function loginAction(Request $request)
     {
-      $route = $request->getHttpHost();
+      $route = $request->getScheme() . '://' .$request->getHttpHost();
       $client_id = $request->request->get('client_id');
       $client_secret = $request->request->get('client_secret');
       $host = $request->request->get('host');
