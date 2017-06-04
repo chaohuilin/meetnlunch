@@ -55,7 +55,6 @@ class SecurityController extends BaseController
      * @return Response
      */
     public function forgotPasswordAction(Request $request){
-
         $username = $request->request->get('username');
         $em = $this->getDoctrine()->getManager();
         if ($username){
@@ -85,6 +84,46 @@ class SecurityController extends BaseController
       }
       return new JsonResponse("Username missing");
 
+    }
+
+    /**
+     * @param Request $request
+     * @Route("/forgot/check", name="forgot_password_check")
+     * @return Response
+     */
+    public function checkForgotPasswordTokenAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $username = $request->request->get('username');
+      $token = $request->request->get('token');
+      $user = $em->getRepository("ApiBundle:User")->findOneBy(array(
+                                                  'username' => $username,
+                                                  'resetToken' => $token
+      ));
+      if ($user){
+        return new JsonResponse(array('success' => true));
+      }
+      return new JsonResponse(array('success' => false));
+    }
+
+    /**
+     * @param Request $request
+     * @Route("/forgot/reset", name="forgot_password_reset")
+     * @return Response
+     */
+    public function resetPasswordTokenAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $username = $request->request->get('username');
+      $password = $request->request->get('password');
+      $user = $em->getRepository("ApiBundle:User")->findOneByUsername($username);
+      if ($user && $password){
+        $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+        $hashedPassword = $encoder->encodePassword($password, $user->getSalt());
+        $user->setPassword($hashedPassword);
+        $em->persist($user);
+        $em->flush();
+        return new JsonResponse(array('success' => true));
+      }
+      return new JsonResponse(array('success' => false, 'message' => 'params missing'));
     }
 
     public function checkPassword($password, $user){

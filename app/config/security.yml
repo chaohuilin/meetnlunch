@@ -28,6 +28,16 @@ security:
             anonymous:  ~
             security: false
 
+        reset_check:
+            pattern:  ^/api/forgot/check
+            anonymous:  ~
+            security: false
+
+        reset_password:
+            pattern:  ^/api/forgot/reset
+            anonymous:  ~
+            security: false
+
         api:
             pattern: ^/api/                            # All URLs are protected
             fos_oauth: true                            # OAuth2 protected resource

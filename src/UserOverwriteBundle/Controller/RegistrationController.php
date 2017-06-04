@@ -124,4 +124,5 @@ class RegistrationController extends BaseController
         return ("email missing");
       };
     }
+
 }
