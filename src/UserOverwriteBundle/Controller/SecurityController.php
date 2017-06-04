@@ -68,15 +68,22 @@ class SecurityController extends BaseController
               $em->persist($user);
               $em->flush();
             }
-            $message = new \Swift_Message('Hello Email');
-            $message->setFrom('support.meetnlunch@gmail.com')
-                      ->setTo($email)
-                      ->setBody("hell");
-            $this->get('mailer')->send($message);
-            return new JsonResponse(true);
-          }
+            $message = new \Swift_Message('Forgot password');
+            $message->setFrom('noreply.meetnlunch@gmail.com')
+            ->setTo($email)
+            ->setBody(
+            $this->renderView(
+            // app/Resources/views/Emails/registration.html.twig
+            'Emails/password_forgot.html.twig',
+            array('username' => $user->getUsername(),
+            'token' => $user->getResetToken())
+          ),
+          'text/html');
+          $this->get('mailer')->send($message);
+          return new JsonResponse(true);
         }
-        return new JsonResponse("Username missing");
+      }
+      return new JsonResponse("Username missing");
 
     }
 
