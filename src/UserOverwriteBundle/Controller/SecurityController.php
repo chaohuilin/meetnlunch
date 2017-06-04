@@ -28,14 +28,13 @@ class SecurityController extends BaseController
       $username = $request->request->get('username');
       $password = $request->request->get('password');
       if ($client_id && $client_secret){
-        return new JsonResponse(array("route" => $route));
         $client = new Client([
           // Base URI is used with relative requests
           'base_uri' => $route,
           // You can set any number of default request options.
           'timeout'  => 20.0,
         ]);
-        $response = $client->request('POST', "/meetnlunch/web/oauth/v2/token", [
+        $response = $client->request('POST', "/oauth/v2/token", [
           'json' => [
             'grant_type' => "password",
             'client_id'  => $client_id,
