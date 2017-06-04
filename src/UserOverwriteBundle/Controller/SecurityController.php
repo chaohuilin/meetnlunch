@@ -22,8 +22,8 @@ class SecurityController extends BaseController
     public function loginAction(Request $request)
     {
       $route = $request->getScheme() . '://' .$request->getHttpHost();
-      $client_id = $request->request->get('client_id');
-      $client_secret = $request->request->get('client_secret');
+      $client_id = $request->query->get('client_id');
+      $client_secret = $request->query->get('client_secret');
       $host = $request->request->get('host');
       $username = $request->request->get('username');
       $password = $request->request->get('password');
@@ -46,7 +46,7 @@ class SecurityController extends BaseController
         $data = json_decode($response->getBody());
         return new JsonResponse($data);
       }
-      return new JsonResponse(array("success" => false, "route" => $route));
+      return new JsonResponse(array("success" => false, "message" => "params missing"));
     }
 
     public function checkPassword($password, $user){
