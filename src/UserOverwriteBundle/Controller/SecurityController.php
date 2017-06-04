@@ -27,24 +27,27 @@ class SecurityController extends BaseController
       $host = $request->request->get('host');
       $username = $request->request->get('username');
       $password = $request->request->get('password');
-      $client = new Client([
-        // Base URI is used with relative requests
-        'base_uri' => $route,
-        // You can set any number of default request options.
-        'timeout'  => 20.0,
-      ]);
-      $response = $client->request('POST', "/meetnlunch/web/app_dev.php/oauth/v2/token", [
-        'json' => [
-          'grant_type' => "password",
-          'client_id'  => $client_id,
-          'client_secret' => $client_secret,
-          'username' => $username,
-          'password' => $password,
-        ]
-      ]);
 
-      $data = json_decode($response->getBody());
-      return new JsonResponse($data);
+      if ($client_id && $client_secret){
+        $client = new Client([
+          // Base URI is used with relative requests
+          'base_uri' => $route,
+          // You can set any number of default request options.
+          'timeout'  => 20.0,
+        ]);
+        $response = $client->request('POST', "/oauth/v2/token", [
+          'json' => [
+            'grant_type' => "password",
+            'client_id'  => $client_id,
+            'client_secret' => $client_secret,
+            'username' => $username,
+            'password' => $password,
+          ]
+        ]);
+        $data = json_decode($response->getBody());
+        return new JsonResponse($data);
+      }
+      return new JsonResponse(array("success" => false, "message" => "params missing"));
     }
 
     public function checkPassword($password, $user){

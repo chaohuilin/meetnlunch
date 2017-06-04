@@ -23,7 +23,6 @@ use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 use ApiBundle\Entity\Customer;
-use ApiBundle\Form\CustomerType;
 
 class RegistrationController extends BaseController
 {
@@ -44,13 +43,10 @@ class RegistrationController extends BaseController
         $username = $request->request->get('username');
         $password = $request->request->get('password');
         $email = $request->request->get('email');
-
-        $form = $this->createForm(CustomerType::class);
-        $form->handleRequest($request);
+        $usernameResponse = self::fillUsername($username, $user);
+        $passwordResponse = self::cryptPassword($password, $user);
+        $emailResponse = self::fillEmail($email, $user);
         if ($request->isMethod("POST")) {
-          $usernameResponse = self::fillUsername($username, $user);
-          $passwordResponse = self::cryptPassword($password, $user);
-          $emailResponse = self::fillEmail($email, $user);
           if ( $usernameResponse == "" &&
                $passwordResponse == "" &&
                $emailResponse == ""){
