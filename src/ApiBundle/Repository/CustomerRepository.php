@@ -20,17 +20,18 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
         $query = "SELECT * FROM Customer c WHERE age BETWEEN 18 AND :age AND visible_gender IN('M', 'F') AND visible_age >= :age AND is_visible = true";
     }
     else {
-      $query = "SELECT * FROM Customer c WHERE age BETWEEN 18 AND :age AND visible_gender = :gender AND visible_age >= :age AND visible_gender = :gender AND is_visible = true";
+      $query = "SELECT * FROM Customer c WHERE age BETWEEN 18 AND :age AND gender = :gender AND visible_age >= :age  AND is_visible = true";
     }
     $params = array(
       "age" => $age,
+      "gender" => $gender,
       "visible_gender" => $gender
     );
     $array = $this->getEntityManager()->getConnection()->executeQuery($query, $params)->fetchAll();
     return $array;
   }
 
-  public function setVisibleParams($visible_age, $visible_gender, $user_id, $position)
+  public function setVisibleParams($visible_age, $visible_gender, $customer_id, $position)
   {
     $this->createQueryBuilder('c')
       ->update()
@@ -40,8 +41,8 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
           ->setParameter(2, $visible_gender)
       ->set('c.position', '?3')
           ->setParameter(3, $position)
-      ->where('c.userId = ?4')
-          ->setParameter(4, $user_id)
+      ->where('c.id = ?4')
+          ->setParameter(4, $customer_id)
       ->getQuery()->execute();
   }
 

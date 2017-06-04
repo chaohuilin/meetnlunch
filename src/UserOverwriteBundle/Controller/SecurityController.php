@@ -22,8 +22,8 @@ class SecurityController extends BaseController
     public function loginAction(Request $request)
     {
       $route = $request->getScheme() . '://' .$request->getHttpHost();
-      $client_id = $request->request->get('client_id');
-      $client_secret = $request->request->get('client_secret');
+      $client_id = $request->query->get('client_id');
+      $client_secret = $request->query->get('client_secret');
       $host = $request->request->get('host');
       $username = $request->request->get('username');
       $password = $request->request->get('password');
@@ -33,7 +33,7 @@ class SecurityController extends BaseController
         // You can set any number of default request options.
         'timeout'  => 20.0,
       ]);
-      $response = $client->request('POST', "/oauth/v2/token", [
+      $response = $client->request('POST', "/meetnlunch/web/app_dev.php/oauth/v2/token", [
         'json' => [
           'grant_type' => "password",
           'client_id'  => $client_id,

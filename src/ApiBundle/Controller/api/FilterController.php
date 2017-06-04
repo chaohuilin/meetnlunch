@@ -19,16 +19,16 @@ class FilterController extends FOSRestController
     $all_query = $request->query->all();
     $range = $all_query["range"];
     $food_id = $all_query["food_id"];
-    $age = $all_query["age"];
-    $gender = $all_query["gender"];
+    $age = $all_query["wanted_age"];
+    $gender = $all_query["wanted_gender"];
     $visible_age = $all_query["visible_age"];
     $visible_gender = $all_query["visible_gender"];
-    $user_id = $all_query["user_id"];
+    $customer_id = $all_query["customer_id"];
     $position = $all_query["position"];
     $em = $this->getDoctrine()->getManager();
     $food = $em->getRepository("ApiBundle:Food")->getFood($food_id);
     $customers = $em->getRepository("ApiBundle:Customer")->getCustomer($age, $gender);
-    $toto = $em->getRepository("ApiBundle:Customer")->setVisibleParams($visible_age, $visible_gender, $user_id, $position);
+    $em->getRepository("ApiBundle:Customer")->setVisibleParams($visible_age, $visible_gender, $customer_id, $position);
     return new JsonResponse($customers);
   }
 }
