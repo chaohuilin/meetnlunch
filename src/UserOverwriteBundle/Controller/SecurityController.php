@@ -80,7 +80,7 @@ class SecurityController extends BaseController
           ),
           'text/html');
           $this->get('mailer')->send($message);
-          return new JsonResponse(true);
+          return new JsonResponse('success' => true);
         }
       }
       return new JsonResponse("Username missing");
