@@ -43,11 +43,10 @@ class RegistrationController extends BaseController
         $username = $request->request->get('username');
         $password = $request->request->get('password');
         $email = $request->request->get('email');
-
+        $usernameResponse = self::fillUsername($username, $user);
+        $passwordResponse = self::cryptPassword($password, $user);
+        $emailResponse = self::fillEmail($email, $user);
         if ($request->isMethod("POST")) {
-          $usernameResponse = self::fillUsername($username, $user);
-          $passwordResponse = self::cryptPassword($password, $user);
-          $emailResponse = self::fillEmail($email, $user);
           if ( $usernameResponse == "" &&
                $passwordResponse == "" &&
                $emailResponse == ""){
