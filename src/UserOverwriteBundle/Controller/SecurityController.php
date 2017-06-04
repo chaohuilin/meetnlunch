@@ -27,6 +27,7 @@ class SecurityController extends BaseController
       $host = $request->request->get('host');
       $username = $request->request->get('username');
       $password = $request->request->get('password');
+
       if ($client_id && $client_secret){
         $client = new Client([
           // Base URI is used with relative requests
