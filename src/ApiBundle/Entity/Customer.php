@@ -22,16 +22,16 @@ class Customer
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="user_id", type="integer", unique=true)
+     * @ORM\OneToOne(targetEntity="User", inversedBy="user")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     * @ORM\OrderBy({"startAt" = "DESC"})
      */
-    private $userId;
+    private $user;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="position", type="string", length=255)
+     * @ORM\Column(name="position", type="string", length=255, nullable=true)
      */
     private $position;
 
@@ -59,44 +59,44 @@ class Customer
     /**
      * @var string
      *
-     * @ORM\Column(name="contact", type="string", length=255)
+     * @ORM\Column(name="contact", type="string", length=255, nullable=true)
      */
     private $contact;
 
     /**
-    * @var integer
+    * @var string
     *
-    * @ORM\Column(name="visible_age", type="integer")
+    * @ORM\Column(name="visible_age", type="string", nullable=true)
     */
-    private $visibleAge;
+    private $visibleAge = "0-99";
 
     /**
     * @var string
     *
-    * @ORM\Column(name="visible_gender", type="string" , length=255)
+    * @ORM\Column(name="visible_gender", type="string" ,length=255)
     */
-    private $visibleGender;
+    private $visibleGender = "both";
 
     /**
     * @var boolean
     *
-    * @ORM\Column(name="show_age", type="boolean", options={"default" : true})
+    * @ORM\Column(name="show_age", type="boolean")
     */
-    private $showAge;
+    private $showAge = false;
 
     /**
     * @var boolean
     *
-    * @ORM\Column(name="show_gender", type="boolean", options={"default" : true})
+    * @ORM\Column(name="show_gender", type="boolean")
     */
-    private $showGender;
+    private $showGender = false;
 
     /**
     * @var boolean
     *
-    * @ORM\Column(name="is_visible", type="boolean", options={"default" : true})
+    * @ORM\Column(name="is_visible", type="boolean")
     */
-    private $isVisible;
+    private $isVisible = true;
 
     /**
      * Get id
@@ -370,5 +370,29 @@ class Customer
     public function getIsVisible()
     {
         return $this->isVisible;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \ApiBundle\Entity\User $user
+     *
+     * @return Customer
+     */
+    public function setUser(\ApiBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \ApiBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

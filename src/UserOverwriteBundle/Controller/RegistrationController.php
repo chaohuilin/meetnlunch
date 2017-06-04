@@ -22,6 +22,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
+use ApiBundle\Entity\Customer;
+use ApiBundle\Form\CustomerType;
+
 class RegistrationController extends BaseController
 {
     /**
@@ -31,37 +34,98 @@ class RegistrationController extends BaseController
      */
     public function registerAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         /** @var $formFactory FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');
         /** @var $userManager UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
-
         $user = $userManager->createUser();
         $user->setEnabled(true);
-        $form = $formFactory->createForm();
-        $form->setData($user);
+        $username = $request->request->get('username');
+        $password = $request->request->get('password');
+        $email = $request->request->get('email');
+
+        $form = $this->createForm(CustomerType::class);
         $form->handleRequest($request);
         if ($request->isMethod("POST")) {
-          $password = $request->request->get('password');
-          self::cryptPassword($password, $user);
-          $user->setUsername($request->request->get('username'));
-          $user->setEmail($request->request->get('email'));
-          $user->setEnabled(true);
-          $userManager->updateUser($user);
-          $response = new JsonResponse(array("success" => true));
-          $response->setStatusCode(200);
-          return $response;
-        }
-        $response = new JsonResponse(array("success" => false, "error" => $form->isSubmitted()));
-        $response->setStatusCode(200);
+          $usernameResponse = self::fillUsername($username, $user);
+          $passwordResponse = self::cryptPassword($password, $user);
+          $emailResponse = self::fillEmail($email, $user);
+          if ( $usernameResponse == "" &&
+               $passwordResponse == "" &&
+               $emailResponse == ""){
+               $user->setUsername($username);
+               $user->setEmail($email);
+               $user->setEnabled(true);
+
+                // create Customer
+                $customer = new Customer();
+                $customer->setAge($request->request->get('age'));
+                $customer->setGender($request->request->get('gender'));
+                $customer->setUser($user);
+                $userManager->updateUser($user);
+      	        $em->persist($customer);
+      	        $em->flush();
+                $currentCustomer = $em->getRepository("ApiBundle:Customer")->findOneByUser($user);
+                $response = new JsonResponse(array("success" => true, "customer" => array(
+                  "age" => $currentCustomer->getAge(),
+                  "gender" => $currentCustomer->getGender(),
+                  "description" => $currentCustomer->getDescription(),
+                  "contact" => $currentCustomer->getContact(),
+                  "visibleAge" => $currentCustomer->getVisibleAge(),
+                  "visibleGender" => $currentCustomer->getVisibleGender(),
+                  "showAge" => $currentCustomer->getShowAge(),
+                  "showGender" => $currentCustomer->getShowGender(),
+                  "isVisible" => $currentCustomer->getIsVisible()
+                ) ));
+                $response->setStatusCode(200);
+                return $response;
+            }
+          }
+        $response = new JsonResponse(array("success" => false,
+                                           "message" => array(
+                                             "username" => $usernameResponse,
+                                             "password" => $passwordResponse,
+                                             "email" => $emailResponse),
+                                             "errors" => $form->getErrors()
+                                           ));
+        $response->setStatusCode(400);
         return $response;
     }
 
     public function cryptPassword($password, $user){
-      $encoder = $this->get('security.encoder_factory')->getEncoder($user);
-      $salt = rtrim(str_replace('+', '.', base64_encode(random_bytes(32))), '=');
-      $user->setSalt($salt);
-      $hashedPassword = $encoder->encodePassword($password, $user->getSalt());
-      $user->setPassword($hashedPassword);
+      if ($password){
+        $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+        $salt = rtrim(str_replace('+', '.', base64_encode(random_bytes(32))), '=');
+        $user->setSalt($salt);
+        $hashedPassword = $encoder->encodePassword($password, $user->getSalt());
+        $user->setPassword($hashedPassword);
+        return ("");
+      }
+      return ("password missing");
+    }
+
+    public function fillUsername($username, $user){
+      $em = $this->getDoctrine()->getManager();
+      if ($username){
+        $existUser = $em->getRepository("ApiBundle:User")->findByUsername($username);
+        if ($existUser)
+          return ("user already exist");
+        return ("");
+      }else{
+          return ("username missing");
+      };
+    }
+
+    public function fillEmail($email, $user){
+      $em = $this->getDoctrine()->getManager();
+      if ($email){
+        $email = $em->getRepository("ApiBundle:User")->findByEmail($email);
+        if ($email)
+          return ("email already exist");
+        return ("");
+      }else{
+        return ("email missing");
+      };
     }
 }
