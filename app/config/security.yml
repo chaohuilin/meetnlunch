@@ -23,6 +23,11 @@ security:
             anonymous:  ~
             security: false
 
+        reset:
+            pattern:  ^/api/forgot
+            anonymous:  ~
+            security: false
+
         api:
             pattern: ^/api/                            # All URLs are protected
             fos_oauth: true                            # OAuth2 protected resource

@@ -29,6 +29,14 @@ class User extends BaseUser
     private $customer;
 
     /**
+    * @var string
+    *
+    * @ORM\Column(name="resetToken", type="string" ,length=255, nullable=true)
+    *
+    */
+    private $resetToken;
+
+    /**
      * Get id
      *
      * @return integer
@@ -70,5 +78,29 @@ class User extends BaseUser
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+    /**
+     * Set resetToken
+     *
+     * @param string $resetToken
+     *
+     * @return User
+     */
+    public function setResetToken($resetToken)
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    /**
+     * Get resetToken
+     *
+     * @return string
+     */
+    public function getResetToken()
+    {
+        return $this->resetToken;
     }
 }
