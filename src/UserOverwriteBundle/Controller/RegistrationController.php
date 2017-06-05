@@ -22,6 +22,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+
 use ApiBundle\Entity\Customer;
 
 class RegistrationController extends BaseController
@@ -62,18 +67,12 @@ class RegistrationController extends BaseController
                 $userManager->updateUser($user);
       	        $em->persist($customer);
       	        $em->flush();
-                $currentCustomer = $em->getRepository("ApiBundle:Customer")->findOneByUser($user);
-                $response = new JsonResponse(array("success" => true, "customer" => array(
-                  "age" => $currentCustomer->getAge(),
-                  "gender" => $currentCustomer->getGender(),
-                  "description" => $currentCustomer->getDescription(),
-                  "contact" => $currentCustomer->getContact(),
-                  "visibleAge" => $currentCustomer->getVisibleAge(),
-                  "visibleGender" => $currentCustomer->getVisibleGender(),
-                  "showAge" => $currentCustomer->getShowAge(),
-                  "showGender" => $currentCustomer->getShowGender(),
-                  "isVisible" => $currentCustomer->getIsVisible()
-                ) ));
+                $content = self::getCustomerInfos($customer);
+                $response = new JsonResponse(
+                              array(
+                                "customer" => $content
+                              )
+                            );
                 $response->setStatusCode(200);
                 return $response;
             }
@@ -82,8 +81,7 @@ class RegistrationController extends BaseController
                                            "message" => array(
                                              "username" => $usernameResponse,
                                              "password" => $passwordResponse,
-                                             "email" => $emailResponse),
-                                             "errors" => $form->getErrors()
+                                             "email" => $emailResponse)
                                            ));
         $response->setStatusCode(400);
         return $response;
@@ -125,4 +123,12 @@ class RegistrationController extends BaseController
       };
     }
 
+    public function getCustomerInfos($customer){
+      // translate object to json object
+      $encoders = array(new XmlEncoder(), new JsonEncoder());
+      $normalizer = new ObjectNormalizer();
+      $normalizer->setIgnoredAttributes(array('user'));
+      $serializer = new Serializer(array($normalizer), $encoders);
+      return ($serializer->normalize($customer));
+    }
 }

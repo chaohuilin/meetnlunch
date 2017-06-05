@@ -22,7 +22,7 @@ class Customer
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="user")
+     * @ORM\OneToOne(targetEntity="User", inversedBy="customer")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      * @ORM\OrderBy({"startAt" = "DESC"})
      */
@@ -98,38 +98,15 @@ class Customer
     */
     private $isVisible = true;
 
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     *
-     * @return Customer
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return int
-     */
-    public function getUserId()
-    {
-        return $this->userId;
     }
 
     /**
@@ -173,7 +150,7 @@ class Customer
     /**
      * Get age
      *
-     * @return int
+     * @return integer
      */
     public function getAge()
     {
@@ -253,21 +230,21 @@ class Customer
     }
 
     /**
-     * Set visible age
+     * Set visibleAge
      *
-     * @param string $age
+     * @param string $visibleAge
      *
      * @return Customer
      */
-    public function setVisibleAge($age)
+    public function setVisibleAge($visibleAge)
     {
-        $this->visibleAge = $age;
+        $this->visibleAge = $visibleAge;
 
         return $this;
     }
 
     /**
-     * Get visible_age
+     * Get visibleAge
      *
      * @return string
      */
@@ -277,21 +254,21 @@ class Customer
     }
 
     /**
-     * Set visible gender
+     * Set visibleGender
      *
-     * @param string $gender
+     * @param string $visibleGender
      *
      * @return Customer
      */
-    public function setVisibleGender($gender)
+    public function setVisibleGender($visibleGender)
     {
-        $this->visibleGender = $gender;
+        $this->visibleGender = $visibleGender;
 
         return $this;
     }
 
     /**
-     * Get visible_age
+     * Get visibleGender
      *
      * @return string
      */
@@ -301,45 +278,21 @@ class Customer
     }
 
     /**
-     * Set show gender
+     * Set showAge
      *
-     * @param boolean $gender
+     * @param boolean $showAge
      *
      * @return Customer
      */
-    public function setShowGender($gender)
+    public function setShowAge($showAge)
     {
-        $this->showGender = $gender;
+        $this->showAge = $showAge;
 
         return $this;
     }
 
     /**
-     * Get show_gender
-     *
-     * @return boolean
-     */
-    public function getShowGender()
-    {
-        return $this->showGender;
-    }
-
-    /**
-     * Set show age
-     *
-     * @param boolean $gender
-     *
-     * @return Customer
-     */
-    public function setShowAge($gender)
-    {
-        $this->showAge = $gender;
-
-        return $this;
-    }
-
-    /**
-     * Get show_age
+     * Get showAge
      *
      * @return boolean
      */
@@ -349,21 +302,45 @@ class Customer
     }
 
     /**
-     * Set is visible
+     * Set showGender
      *
-     * @param boolean $gender
+     * @param boolean $showGender
      *
      * @return Customer
      */
-    public function setIsVisible($gender)
+    public function setShowGender($showGender)
     {
-        $this->isVisible = $gender;
+        $this->showGender = $showGender;
 
         return $this;
     }
 
     /**
-     * Get is visible
+     * Get showGender
+     *
+     * @return boolean
+     */
+    public function getShowGender()
+    {
+        return $this->showGender;
+    }
+
+    /**
+     * Set isVisible
+     *
+     * @param boolean $isVisible
+     *
+     * @return Customer
+     */
+    public function setIsVisible($isVisible)
+    {
+        $this->isVisible = $isVisible;
+
+        return $this;
+    }
+
+    /**
+     * Get isVisible
      *
      * @return boolean
      */

@@ -11,6 +11,10 @@ use FOS\UserBundle\Controller\SecurityController as BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use GuzzleHttp\Client;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class SecurityController extends BaseController
 {
@@ -21,6 +25,14 @@ class SecurityController extends BaseController
      */
     public function loginAction(Request $request)
     {
+
+      // translate object to json object
+      $encoders = array(new XmlEncoder(), new JsonEncoder());
+      $normalizer = new ObjectNormalizer();
+      $normalizer->setIgnoredAttributes(array('user'));
+      $serializer = new Serializer(array($normalizer), $encoders);
+
+      $em = $this->getDoctrine()->getManager();
       $route = $request->getScheme() . '://' .$request->getHttpHost();
       $client_id = $request->query->get('client_id');
       $client_secret = $request->query->get('client_secret');
@@ -45,7 +57,12 @@ class SecurityController extends BaseController
           ]
         ]);
         $data = json_decode($response->getBody());
-        return new JsonResponse($data);
+        $user = $em->getRepository('ApiBundle:User')->findOneByUsername($username);
+        if ($user)
+          $customer =  $em->getRepository('ApiBundle:Customer')->findOneByUser($user);
+        return new JsonResponse(array('token'  => $data,
+                                      'user'   => $serializer->normalize($customer)
+                                    ));
       }
       return new JsonResponse(array("success" => false, "message" => "params missing"));
     }
