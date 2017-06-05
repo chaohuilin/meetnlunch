@@ -17,10 +17,10 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
   {
     $query = "";
     if ($gender == "both") {
-        $query = "SELECT * FROM Customer c WHERE age BETWEEN 18 AND :age AND visible_gender IN('M', 'F') AND visible_age >= :age AND is_visible = true";
+        $query = "SELECT * FROM customer c WHERE age BETWEEN 18 AND :age AND visible_gender IN('M', 'F') AND visible_age >= :age AND is_visible = true";
     }
     else {
-      $query = "SELECT * FROM Customer c WHERE age BETWEEN 18 AND :age AND gender = :gender AND visible_age >= :age  AND is_visible = true";
+      $query = "SELECT * FROM customer c WHERE age BETWEEN 18 AND :age AND gender = :gender AND visible_age >= :age  AND is_visible = true";
     }
     $params = array(
       "age" => $age,
