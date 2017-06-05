@@ -15,7 +15,7 @@ class FoodRepository extends \Doctrine\ORM\EntityRepository
   **/
   public function getFood($food_id)
   {
-    $query = "SELECT * FROM Food f WHERE id = :id";
+    $query = "SELECT * FROM food f WHERE id = :id";
     $params = array(
       "id" => $food_id
     );
