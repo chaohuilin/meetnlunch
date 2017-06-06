@@ -100,7 +100,7 @@ class Customer
     /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -148,7 +148,7 @@ class Customer
     /**
      * Get age
      *
-     * @return integer
+     * @return int
      */
     public function getAge()
     {
@@ -228,23 +228,23 @@ class Customer
     }
 
     /**
-     * Set visibleAge
+     * Set visible age
      *
-     * @param int $visibleAge
+     * @param integer $age
      *
      * @return Customer
      */
-    public function setVisibleAge($visibleAge)
+    public function setVisibleAge($age)
     {
-        $this->visibleAge = $visibleAge;
+        $this->visibleAge = $age;
 
         return $this;
     }
 
     /**
-     * Get visibleAge
+     * Get visible_age
      *
-     * @return int
+     * @return integer
      */
     public function getVisibleAge()
     {
@@ -252,21 +252,21 @@ class Customer
     }
 
     /**
-     * Set visibleGender
+     * Set visible gender
      *
-     * @param string $visibleGender
+     * @param string $gender
      *
      * @return Customer
      */
-    public function setVisibleGender($visibleGender)
+    public function setVisibleGender($gender)
     {
-        $this->visibleGender = $visibleGender;
+        $this->visibleGender = $gender;
 
         return $this;
     }
 
     /**
-     * Get visibleGender
+     * Get visible_age
      *
      * @return string
      */
@@ -276,45 +276,21 @@ class Customer
     }
 
     /**
-     * Set showAge
+     * Set show gender
      *
-     * @param boolean $showAge
+     * @param boolean $gender
      *
      * @return Customer
      */
-    public function setShowAge($showAge)
+    public function setShowGender($gender)
     {
-        $this->showAge = $showAge;
+        $this->showGender = $gender;
 
         return $this;
     }
 
     /**
-     * Get showAge
-     *
-     * @return boolean
-     */
-    public function getShowAge()
-    {
-        return $this->showAge;
-    }
-
-    /**
-     * Set showGender
-     *
-     * @param boolean $showGender
-     *
-     * @return Customer
-     */
-    public function setShowGender($showGender)
-    {
-        $this->showGender = $showGender;
-
-        return $this;
-    }
-
-    /**
-     * Get showGender
+     * Get show_gender
      *
      * @return boolean
      */
@@ -324,21 +300,45 @@ class Customer
     }
 
     /**
-     * Set isVisible
+     * Set show age
      *
-     * @param boolean $isVisible
+     * @param boolean $gender
      *
      * @return Customer
      */
-    public function setIsVisible($isVisible)
+    public function setShowAge($gender)
     {
-        $this->isVisible = $isVisible;
+        $this->showAge = $gender;
 
         return $this;
     }
 
     /**
-     * Get isVisible
+     * Get show_age
+     *
+     * @return boolean
+     */
+    public function getShowAge()
+    {
+        return $this->showAge;
+    }
+
+    /**
+     * Set is visible
+     *
+     * @param boolean $gender
+     *
+     * @return Customer
+     */
+    public function setIsVisible($gender)
+    {
+        $this->isVisible = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get is visible
      *
      * @return boolean
      */
@@ -346,7 +346,6 @@ class Customer
     {
         return $this->isVisible;
     }
-
 
     /**
      * Set user

@@ -63,4 +63,3 @@ class Food
         return $this->name;
     }
 }
-

@@ -4,7 +4,7 @@ namespace ApiBundle\Controller\api;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use ApiBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -27,8 +27,9 @@ class FilterController extends FOSRestController
     $position = $all_query["position"];
     $em = $this->getDoctrine()->getManager();
     $food = $em->getRepository("ApiBundle:Food")->getFood($food_id);
-    $customers = $em->getRepository("ApiBundle:Customer")->getCustomer($age, $gender);
+    $customers = json_encode(array("customers" => $em->getRepository("ApiBundle:Customer")->getCustomer($age, $gender)));
     $em->getRepository("ApiBundle:Customer")->setVisibleParams($visible_age, $visible_gender, $customer_id, $position);
-    return new JsonResponse($customers);
+
+    return new Response($customers);
   }
 }
