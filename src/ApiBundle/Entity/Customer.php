@@ -28,11 +28,11 @@ class Customer
     private $user;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="position", type="string", length=255, nullable=true)
+     * @ORM\Column(name="food", type="integer")
      */
-    private $position;
+    private $food = 1;
 
     /**
      * @var int
@@ -51,16 +51,30 @@ class Customer
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="contact", type="string", length=255, nullable=true)
      */
     private $contact;
+
+    /**
+    * @var integer
+    *
+    * @ORM\Column(name="wanted_age", type="integer", nullable=true)
+    */
+    private $wantedAge = 50;
+
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="wanted_gender", type="string", nullable=true)
+    */
+    private $wantedGender = 'both';
+
+    /**
+    * @var integer
+    *
+    * @ORM\Column(name="visibility_range", type="integer", nullable=true)
+    */
+    private $visibilityRange = 1;
 
     /**
     * @var integer
@@ -72,9 +86,30 @@ class Customer
     /**
     * @var string
     *
-    * @ORM\Column(name="visible_gender", type="string" ,length=255)
+    * @ORM\Column(name="visible_gender", type="string", nullable=true)
     */
-    private $visibleGender = "both";
+    private $visibleGender = 'both';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description= '';
+
+    /**
+    * @var integer
+    *
+    * @ORM\Column(name="longitude", type="integer", nullable=true)
+    */
+    private $longitude = 0;
+
+    /**
+    * @var integer
+    *
+    * @ORM\Column(name="lagitude", type="integer", nullable=true)
+    */
+    private $lagitude = 0;
 
     /**
     * @var boolean
@@ -82,13 +117,6 @@ class Customer
     * @ORM\Column(name="show_age", type="boolean")
     */
     private $showAge = false;
-
-    /**
-    * @var boolean
-    *
-    * @ORM\Column(name="show_gender", type="boolean")
-    */
-    private $showGender = false;
 
     /**
     * @var boolean
@@ -105,30 +133,6 @@ class Customer
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set position
-     *
-     * @param string $position
-     *
-     * @return Customer
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return string
-     */
-    public function getPosition()
-    {
-        return $this->position;
     }
 
     /**
@@ -276,30 +280,6 @@ class Customer
     }
 
     /**
-     * Set show gender
-     *
-     * @param boolean $gender
-     *
-     * @return Customer
-     */
-    public function setShowGender($gender)
-    {
-        $this->showGender = $gender;
-
-        return $this;
-    }
-
-    /**
-     * Get show_gender
-     *
-     * @return boolean
-     */
-    public function getShowGender()
-    {
-        return $this->showGender;
-    }
-
-    /**
      * Set show age
      *
      * @param boolean $gender
@@ -369,5 +349,150 @@ class Customer
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set wantedAge
+     *
+     * @param integer $wantedAge
+     *
+     * @return Customer
+     */
+    public function setWantedAge($wantedAge)
+    {
+        $this->wantedAge = $wantedAge;
+
+        return $this;
+    }
+
+    /**
+     * Get wantedAge
+     *
+     * @return integer
+     */
+    public function getWantedAge()
+    {
+        return $this->wantedAge;
+    }
+
+    /**
+     * Set wantedGender
+     *
+     * @param string $wantedGender
+     *
+     * @return Customer
+     */
+    public function setWantedGender($wantedGender)
+    {
+        $this->wantedGender = $wantedGender;
+
+        return $this;
+    }
+
+    /**
+     * Get wantedGender
+     *
+     * @return string
+     */
+    public function getWantedGender()
+    {
+        return $this->wantedGender;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param integer $longitude
+     *
+     * @return Customer
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return integer
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set lagitude
+     *
+     * @param integer $lagitude
+     *
+     * @return Customer
+     */
+    public function setLagitude($lagitude)
+    {
+        $this->lagitude = $lagitude;
+
+        return $this;
+    }
+
+    /**
+     * Get lagitude
+     *
+     * @return integer
+     */
+    public function getLagitude()
+    {
+        return $this->lagitude;
+    }
+
+
+    /**
+     * Set food
+     *
+     * @param integer $food
+     *
+     * @return Customer
+     */
+    public function setFood($food)
+    {
+        $this->food = $food;
+
+        return $this;
+    }
+
+    /**
+     * Get food
+     *
+     * @return integer
+     */
+    public function getFood()
+    {
+        return $this->food;
+    }
+
+    /**
+     * Set visibilityRange
+     *
+     * @param integer $visibilityRange
+     *
+     * @return Customer
+     */
+    public function setVisibilityRange($visibilityRange)
+    {
+        $this->visibilityRange = $visibilityRange;
+
+        return $this;
+    }
+
+    /**
+     * Get visibilityRange
+     *
+     * @return integer
+     */
+    public function getVisibilityRange()
+    {
+        return $this->visibilityRange;
     }
 }
