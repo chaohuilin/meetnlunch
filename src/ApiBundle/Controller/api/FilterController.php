@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 use ApiBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
 
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+
 class FilterController extends FOSRestController
 {
   /**
@@ -16,6 +21,13 @@ class FilterController extends FOSRestController
    */
   public function getFilterAction(Request $request)
   {
+
+    // translate object to json object
+    $encoders = array(new XmlEncoder(), new JsonEncoder());
+    $normalizer = new ObjectNormalizer();
+    $normalizer->setIgnoredAttributes(array('user'));
+    $serializer = new Serializer(array($normalizer), $encoders);
+
     $all_query = $request->query->all();
     $range = $all_query["range"];
     $food_id = $all_query["food_id"];
@@ -26,11 +38,13 @@ class FilterController extends FOSRestController
     $customer_id = $all_query["customer_id"];
     $lagitude = $all_query["lagitude"];
     $longitude = $all_query["longitude"];
+    $food = $all_query['food'];
     $em = $this->getDoctrine()->getManager();
-    $food = $em->getRepository("ApiBundle:Food")->getFood($food_id);
-    $customers = json_encode(array("customers" => $em->getRepository("ApiBundle:Customer")->getCustomer($age, $gender)));
+    $customers = $em->getRepository("ApiBundle:Customer")->findBy(array("age" => $age,
+                                                                        "gender" => $gender,
+                                                                        "food" => $food
+                                                                        ))));
     $em->getRepository("ApiBundle:Customer")->setVisibleParams($visible_age, $visible_gender, $customer_id, $lagitude, $longitude);
-
-    return new Response($customers);
+    return new JsonResponse(array('customers' => $serializer->normalize($customers)));
   }
 }
