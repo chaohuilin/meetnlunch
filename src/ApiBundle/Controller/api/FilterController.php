@@ -43,7 +43,8 @@ class FilterController extends FOSRestController
     $customers = $em->getRepository("ApiBundle:Customer")->findBy(array("age" => $age,
                                                                         "gender" => $gender,
                                                                         "food" => $food
-                                                                        ))));
+                                                                        )
+                                                                  );
     $em->getRepository("ApiBundle:Customer")->setVisibleParams($visible_age, $visible_gender, $customer_id, $lagitude, $longitude);
     return new JsonResponse(array('customers' => $serializer->normalize($customers)));
   }
