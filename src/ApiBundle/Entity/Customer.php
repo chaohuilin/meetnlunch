@@ -63,11 +63,11 @@ class Customer
     private $contact;
 
     /**
-    * @var string
+    * @var integer
     *
-    * @ORM\Column(name="visible_age", type="string", nullable=true)
+    * @ORM\Column(name="visible_age", type="integer", nullable=true)
     */
-    private $visibleAge = "0-99";
+    private $visibleAge = 50;
 
     /**
     * @var string
@@ -230,7 +230,7 @@ class Customer
     /**
      * Set visibleAge
      *
-     * @param string $visibleAge
+     * @param int $visibleAge
      *
      * @return Customer
      */
@@ -244,7 +244,7 @@ class Customer
     /**
      * Get visibleAge
      *
-     * @return string
+     * @return int
      */
     public function getVisibleAge()
     {
