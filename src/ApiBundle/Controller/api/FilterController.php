@@ -30,7 +30,6 @@ class FilterController extends FOSRestController
 
     $all_query = $request->query->all();
     $range = $all_query["range"];
-    $food_id = $all_query["food_id"];
     $age = $all_query["wanted_age"];
     $gender = $all_query["wanted_gender"];
     $visible_age = $all_query["visible_age"];
