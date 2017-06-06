@@ -27,15 +27,9 @@ class UserController extends FOSRestController
       $em = $this->get('doctrine')->getManager();
       $customer = $em->getRepository('ApiBundle:Customer')->findOneById($id);
       if (!$customer) {
-        throw $this->createNotFoundException(sprintf(
-                'No customer found with id "%s"',
-                $id
-            ));
+        return new JsonResponse(array("error" => "customer doesn't exist"));
       }elseif ($customer->getUser() !== $user) {
-        throw $this->createNotFoundException(sprintf(
-                'Customer with id "%s" and token doesn\'t match',
-                $id
-            ));
+        return new JsonResponse(array("error" => "token and Customer id doesn\'t match"));
       }else{
           // translate object to json object
           $encoders = array(new XmlEncoder(), new JsonEncoder());
