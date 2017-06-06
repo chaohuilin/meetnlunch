@@ -18,6 +18,24 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 
 class UserController extends FOSRestController
 {
+
+    /**
+    * @Route("/users", name="list_customer")
+    */
+    public function getUsersAction(Request $request)
+    {
+      $em = $this->get('doctrine')->getManager();
+      $customers = $em->getRepository('ApiBundle:Customer')->findAll();
+
+      // translate object to json object
+      $encoders = array(new XmlEncoder(), new JsonEncoder());
+      $normalizer = new ObjectNormalizer();
+      $normalizer->setIgnoredAttributes(array('user'));
+      $serializer = new Serializer(array($normalizer), $encoders);
+      return new JsonResponse(array("success" => true,
+                                    "customers" => $serializer->normalize($customers)));
+    }
+
     /**
     * @Route("/users/{id}", name="update_customer")
     */
