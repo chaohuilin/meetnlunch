@@ -60,7 +60,7 @@ class SecurityController extends BaseController
         $user = $em->getRepository('ApiBundle:User')->findOneByUsername($username);
         if ($user)
           $customer =  $em->getRepository('ApiBundle:Customer')->findOneByUser($user);
-        return new JsonResponse(array('token'  => $data,
+        return new JsonResponse(array("token"  => $data,
                                       'user'   => $serializer->normalize($customer)
                                     ));
       }

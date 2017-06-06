@@ -13,9 +13,9 @@ class CustomerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('position')->add('age')->add('gender')->add('description')->add('contact')->add('visibleAge')->add('visibleGender')->add('showAge')->add('showGender')->add('isVisible')->add('user');
+        $builder->add('position')->add('age')->add('gender')->add('description')->add('contact')->add('visibleAge')->add('visibleGender')->add('showAge')->add('showGender')->add('isVisible');
     }
-    
+
     /**
      * {@inheritdoc}
      */
