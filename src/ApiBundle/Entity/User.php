@@ -31,6 +31,13 @@ class User extends BaseUser
     private $resetToken;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="avatar", type="integer", nullable=true)
+     */
+    private $avatar;
+
+    /**
      * Get id
      *
      * @return integer
@@ -64,4 +71,28 @@ class User extends BaseUser
         return $this->resetToken;
     }
 
+
+    /**
+     * Set avatar
+     *
+     * @param integer $avatar
+     *
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return integer
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
 }
