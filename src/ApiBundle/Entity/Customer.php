@@ -98,18 +98,18 @@ class Customer
     private $description= '';
 
     /**
-    * @var integer
+    * @var float
     *
-    * @ORM\Column(name="longitude", type="integer", nullable=true)
+    * @ORM\Column(name="longitude", type="float", nullable=true)
     */
-    private $longitude = 0;
+    private $longitude = 0.0;
 
     /**
-    * @var integer
+    * @var float
     *
-    * @ORM\Column(name="latitude", type="integer", nullable=true)
+    * @ORM\Column(name="latitude", type="float", nullable=true)
     */
-    private $latitude = 0;
+    private $latitude = 0.0;
 
     /**
     * @var boolean
