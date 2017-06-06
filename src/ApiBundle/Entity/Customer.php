@@ -107,9 +107,9 @@ class Customer
     /**
     * @var integer
     *
-    * @ORM\Column(name="lagitude", type="integer", nullable=true)
+    * @ORM\Column(name="latitude", type="integer", nullable=true)
     */
-    private $lagitude = 0;
+    private $latitude = 0;
 
     /**
     * @var boolean
@@ -424,27 +424,27 @@ class Customer
     }
 
     /**
-     * Set lagitude
+     * Set latitude
      *
-     * @param integer $lagitude
+     * @param integer $latitude
      *
      * @return Customer
      */
-    public function setLagitude($lagitude)
+    public function setlatitude($latitude)
     {
-        $this->lagitude = $lagitude;
+        $this->latitude = $latitude;
 
         return $this;
     }
 
     /**
-     * Get lagitude
+     * Get latitude
      *
      * @return integer
      */
-    public function getLagitude()
+    public function getlatitude()
     {
-        return $this->lagitude;
+        return $this->latitude;
     }
 
 
