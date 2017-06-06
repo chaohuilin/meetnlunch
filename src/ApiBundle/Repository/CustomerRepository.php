@@ -31,7 +31,7 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
     return $array;
   }
 
-  public function setVisibleParams($visible_age, $visible_gender, $customer_id, $position)
+  public function setVisibleParams($visible_age, $visible_gender, $customer_id, $lagitude, $longitude)
   {
     $this->createQueryBuilder('c')
       ->update()
@@ -39,10 +39,12 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
           ->setParameter(1, $visible_age)
       ->set('c.visibleGender', '?2')
           ->setParameter(2, $visible_gender)
-      ->set('c.position', '?3')
-          ->setParameter(3, $position)
+      ->set('c.lagitude', '?3')
+          ->setParameter(3, $lagitude)
       ->where('c.id = ?4')
           ->setParameter(4, $customer_id)
+      ->set('c.longitude', '?5')
+          ->setParameter(5, $longitude)
       ->getQuery()->execute();
   }
 
