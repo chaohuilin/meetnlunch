@@ -22,9 +22,8 @@ class Customer
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="customer")
+     * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
-     * @ORM\OrderBy({"startAt" = "DESC"})
      */
     private $user;
 
@@ -97,7 +96,6 @@ class Customer
     * @ORM\Column(name="is_visible", type="boolean")
     */
     private $isVisible = true;
-
 
     /**
      * Get id
@@ -348,6 +346,7 @@ class Customer
     {
         return $this->isVisible;
     }
+
 
     /**
      * Set user

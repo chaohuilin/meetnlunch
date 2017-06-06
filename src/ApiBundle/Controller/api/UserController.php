@@ -19,18 +19,21 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 class UserController extends FOSRestController
 {
     /**
-    * @param int $customer
     * @Route("/users/{id}", name="update_customer")
     */
     public function putUsersAction(Request $request, $id)
     {
+      $user = $this->getUser();
       $em = $this->get('doctrine')->getManager();
-      $customer = $em
-                  ->getRepository('ApiBundle:Customer')
-                  ->findOneById($id);
+      $customer = $em->getRepository('ApiBundle:Customer')->findOneById($id);
       if (!$customer) {
         throw $this->createNotFoundException(sprintf(
                 'No customer found with id "%s"',
+                $id
+            ));
+      }elseif ($customer->getUser() !== $user) {
+        throw $this->createNotFoundException(sprintf(
+                'Customer with id "%s" and token doesn\'t match',
                 $id
             ));
       }else{
@@ -39,7 +42,6 @@ class UserController extends FOSRestController
           $normalizer = new ObjectNormalizer();
           $normalizer->setIgnoredAttributes(array('user'));
           $serializer = new Serializer(array($normalizer), $encoders);
-
 
           $form = $this->createForm(CustomerType::class, $customer);
           $data = json_decode($request->getContent(), true);

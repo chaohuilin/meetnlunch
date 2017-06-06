@@ -23,12 +23,6 @@ class User extends BaseUser
     protected $id;
 
     /**
-      * @ORM\OneToMany(targetEntity="Customer", mappedBy="User")
-      * @ORM\OrderBy({"name" = "ASC"})
-    */
-    private $customer;
-
-    /**
     * @var string
     *
     * @ORM\Column(name="resetToken", type="string" ,length=255, nullable=true)
@@ -44,40 +38,6 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Add customer
-     *
-     * @param \ApiBundle\Entity\Customer $customer
-     *
-     * @return User
-     */
-    public function addCustomer(\ApiBundle\Entity\Customer $customer)
-    {
-        $this->customer[] = $customer;
-
-        return $this;
-    }
-
-    /**
-     * Remove customer
-     *
-     * @param \ApiBundle\Entity\Customer $customer
-     */
-    public function removeCustomer(\ApiBundle\Entity\Customer $customer)
-    {
-        $this->customer->removeElement($customer);
-    }
-
-    /**
-     * Get customer
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
     }
 
     /**
@@ -103,4 +63,5 @@ class User extends BaseUser
     {
         return $this->resetToken;
     }
+
 }
