@@ -43,6 +43,7 @@ class UserController extends FOSRestController
     {
       $user = $this->getUser();
       $em = $this->get('doctrine')->getManager();
+      $avatar = $request->request->get('avatar');
       $customer = $em->getRepository('ApiBundle:Customer')->findOneById($id);
       if (!$customer) {
         return new JsonResponse(array("error" => "customer doesn't exist"));
@@ -58,10 +59,19 @@ class UserController extends FOSRestController
           $form = $this->createForm(CustomerType::class, $customer);
           $data = json_decode($request->getContent(), true);
           $form->submit($data, false);
+          $user = $customer->getUser();
+          if ($avatar){
+            $user->setAvatar($avatar);
+            $em->persist($user);
+          }
           $em->persist($customer);
           $em->flush();
           return new JsonResponse(array("success" => true,
-                                        "user" => $serializer->normalize($customer)));
+                                        "user" => array(
+                                          "username" => $user->getUsername(),
+                                          "avatar" => $user->getAvatar()
+                                        ),
+                                        "customer" => $serializer->normalize($customer)));
       }
     }
 }

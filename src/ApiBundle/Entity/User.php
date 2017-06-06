@@ -31,9 +31,9 @@ class User extends BaseUser
     private $resetToken;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="avatar", type="integer", nullable=true)
+     * @ORM\Column(name="avatar", type="string", nullable=true)
      */
     private $avatar;
 
@@ -75,7 +75,7 @@ class User extends BaseUser
     /**
      * Set avatar
      *
-     * @param integer $avatar
+     * @param string $avatar
      *
      * @return User
      */
@@ -89,7 +89,7 @@ class User extends BaseUser
     /**
      * Get avatar
      *
-     * @return integer
+     * @return string
      */
     public function getAvatar()
     {
