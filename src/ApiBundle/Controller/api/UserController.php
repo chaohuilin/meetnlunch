@@ -45,7 +45,7 @@ class UserController extends FOSRestController
 
           $form = $this->createForm(CustomerType::class, $customer);
           $data = json_decode($request->getContent(), true);
-          $form->submit($data);
+          $form->submit($data, false);
           $em->persist($customer);
           $em->flush();
           return new JsonResponse(array("success" => true,

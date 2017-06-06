@@ -13,7 +13,7 @@ class CustomerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('position')->add('age')->add('gender')->add('description')->add('contact')->add('visibleAge')->add('visibleGender')->add('showAge')->add('showGender')->add('isVisible');
+        $builder->add('food')->add('age')->add('gender')->add('contact')->add('wantedAge')->add('wantedGender')->add('visibilityRange')->add('visibleAge')->add('visibleGender')->add('description')->add('longitude')->add('lagitude')->add('showAge')->add('isVisible');
     }
 
     /**
