@@ -39,7 +39,10 @@ class SecurityController extends BaseController
       $host = $request->request->get('host');
       $username = $request->request->get('username');
       $password = $request->request->get('password');
-
+      $user = $em->getRepository('ApiBundle:User')->findOneByUsername($username);
+      if (!$user or  !self::checkPassword($password, $user)){
+        return new JsonResponse(array('error' => 'password or username invalid'));
+      }
       if ($client_id && $client_secret){
         $client = new Client([
           // Base URI is used with relative requests
@@ -57,7 +60,6 @@ class SecurityController extends BaseController
           ]
         ]);
         $data = json_decode($response->getBody());
-        $user = $em->getRepository('ApiBundle:User')->findOneByUsername($username);
         if ($user)
           $customer =  $em->getRepository('ApiBundle:Customer')->findOneByUser($user);
         return new JsonResponse(array("token"  => $data,
