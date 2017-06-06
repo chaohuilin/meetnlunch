@@ -22,9 +22,8 @@ class Customer
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="user")
+     * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
-     * @ORM\OrderBy({"startAt" = "DESC"})
      */
     private $user;
 
@@ -106,30 +105,6 @@ class Customer
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     *
-     * @return Customer
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return int
-     */
-    public function getUserId()
-    {
-        return $this->userId;
     }
 
     /**
