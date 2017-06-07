@@ -495,4 +495,24 @@ class Customer
     {
         return $this->visibilityRange;
     }
+
+    /**
+     * Get userAvatar
+     *
+     * @return string
+     */
+    public function getUserAvatar()
+    {
+        return $this->user->getAvatar();
+    }
+
+    /**
+     * Get userUsername
+     *
+     * @return string
+     */
+    public function getUserUsername()
+    {
+        return $this->user->getUsername();
+    }
 }
