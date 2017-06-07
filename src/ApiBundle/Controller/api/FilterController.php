@@ -39,8 +39,8 @@ class FilterController extends FOSRestController
     $longitude = $all_query["longitude"];
     $food = $all_query['food'];
     $em = $this->getDoctrine()->getManager();
-    $customers =  $serializer->serialize($em->getRepository("ApiBundle:Customer")->getCustomer($age,$gender, $food), "json");
+    $customers =  json_encode(array("customers" => $em->getRepository("ApiBundle:Customer")->getCustomer($age,$gender, $food)));
     $em->getRepository("ApiBundle:Customer")->setVisibleParams($visible_age, $visible_gender, $customer_id, $latitude, $longitude);
-    return new JsonResponse(array('customers' => $customers));
+    return new JsonResponse($customers);
   }
 }
