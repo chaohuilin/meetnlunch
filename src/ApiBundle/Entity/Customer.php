@@ -402,7 +402,7 @@ class Customer
     /**
      * Set longitude
      *
-     * @param integer $longitude
+     * @param float $longitude
      *
      * @return Customer
      */
@@ -416,7 +416,7 @@ class Customer
     /**
      * Get longitude
      *
-     * @return integer
+     * @return float
      */
     public function getLongitude()
     {
@@ -426,7 +426,7 @@ class Customer
     /**
      * Set latitude
      *
-     * @param integer $latitude
+     * @param float $latitude
      *
      * @return Customer
      */
@@ -440,7 +440,7 @@ class Customer
     /**
      * Get latitude
      *
-     * @return integer
+     * @return float
      */
     public function getlatitude()
     {
