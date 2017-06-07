@@ -51,7 +51,7 @@ class SecurityController extends BaseController
           // You can set any number of default request options.
           'timeout'  => 20.0,
         ]);
-        $response = $client->request('POST', "/meetnlunch/web/app_dev.php/oauth/v2/token", [
+        $response = $client->request('POST', "/oauth/v2/token", [
           'json' => [
             'grant_type' => "password",
             'client_id'  => $client_id,
