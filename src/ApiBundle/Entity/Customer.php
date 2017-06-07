@@ -497,21 +497,21 @@ class Customer
     }
 
     /**
-     * Get userAvatar
+     * Get avatar
      *
      * @return string
      */
-    public function getUserAvatar()
+    public function getAvatar()
     {
         return $this->user->getAvatar();
     }
 
     /**
-     * Get userUsername
+     * Get username
      *
      * @return string
      */
-    public function getUserUsername()
+    public function getUsername()
     {
         return $this->user->getUsername();
     }
