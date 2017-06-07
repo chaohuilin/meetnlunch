@@ -1,15 +1,15 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_host: o3iyl77734b9n3tg.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
-    database_port: 3306
-    database_name: qng63aq6nw6ldmjq
-    database_user: x0dxo45t7llxn88t
-    database_password: pesh83h5iec9jzbd
-    #database_host: 127.0.0.1
-    #database_port: 8889
-    #database_name: meetnlunch
-    #database_user: root
-    #database_password: root
+    # database_host: o3iyl77734b9n3tg.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
+    # database_port: 3306
+    # database_name: qng63aq6nw6ldmjq
+    # database_user: x0dxo45t7llxn88t
+    # database_password: pesh83h5iec9jzbd
+    database_host: 127.0.0.1
+    database_port: 8889
+    database_name: meetnlunch
+    database_user: root
+    database_password: root
     mailer_transport: gmail
     mailer_host: gmail.com
     mailer_user: noreply.meetnlunch@gmail.com

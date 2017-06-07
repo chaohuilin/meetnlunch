@@ -13,26 +13,25 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
   /**
   * @return string
   **/
-  public function getCustomer($age, $gender, $food)
+  public function getCustomer($age, $gender)
   {
     $query = "";
     if ($gender == "both") {
-        $query = "SELECT * FROM customer c WHERE age BETWEEN 18 AND :age AND visible_gender IN('M', 'F') AND visible_age >= :age AND is_visible = true AND food = :food";
+        $query = "SELECT * FROM customer c WHERE age BETWEEN 18 AND :age AND gender IN('M', 'F') AND visible_age >= :age AND is_visible = true";
     }
     else {
-      $query = "SELECT * FROM customer c WHERE age BETWEEN 18 AND :age AND gender = :gender AND visible_age >= :age  AND is_visible = true AND food = :food";
+      $query = "SELECT * FROM customer c WHERE age BETWEEN 18 AND :age AND gender = :gender AND visible_age >= :age  AND is_visible = true";
     }
     $params = array(
       "age" => $age,
       "gender" => $gender,
-      "food" => $food,
       "visible_gender" => $gender
     );
     $array = $this->getEntityManager()->getConnection()->executeQuery($query, $params)->fetchAll();
     return $array;
   }
 
-  public function setVisibleParams($visible_age, $visible_gender, $customer_id, $latitude, $longitude)
+  public function setVisibleParams($visible_age, $visible_gender, $customer_id, $position)
   {
     $this->createQueryBuilder('c')
       ->update()
@@ -40,12 +39,10 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
           ->setParameter(1, $visible_age)
       ->set('c.visibleGender', '?2')
           ->setParameter(2, $visible_gender)
-      ->set('c.latitude', '?3')
-          ->setParameter(3, $latitude)
+      ->set('c.position', '?3')
+          ->setParameter(3, $position)
       ->where('c.id = ?4')
           ->setParameter(4, $customer_id)
-      ->set('c.longitude', '?5')
-          ->setParameter(5, $longitude)
       ->getQuery()->execute();
   }
 
