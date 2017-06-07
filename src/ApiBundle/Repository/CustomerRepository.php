@@ -13,18 +13,19 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
   /**
   * @return string
   **/
-  public function getCustomer($age, $gender)
+  public function getCustomer($age, $gender, $food)
   {
     $query = "";
     if ($gender == "both") {
-        $query = "SELECT * FROM customer c WHERE age BETWEEN 18 AND :age AND visible_gender IN('M', 'F') AND visible_age >= :age AND is_visible = true";
+        $query = "SELECT * FROM customer c WHERE age BETWEEN 18 AND :age AND visible_gender IN('M', 'F') AND visible_age >= :age AND is_visible = true AND food = :food";
     }
     else {
-      $query = "SELECT * FROM customer c WHERE age BETWEEN 18 AND :age AND gender = :gender AND visible_age >= :age  AND is_visible = true";
+      $query = "SELECT * FROM customer c WHERE age BETWEEN 18 AND :age AND gender = :gender AND visible_age >= :age  AND is_visible = true AND food = :food";
     }
     $params = array(
       "age" => $age,
       "gender" => $gender,
+      "food" => $food,
       "visible_gender" => $gender
     );
     $array = $this->getEntityManager()->getConnection()->executeQuery($query, $params)->fetchAll();
